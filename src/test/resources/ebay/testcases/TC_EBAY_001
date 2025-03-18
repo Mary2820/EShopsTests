@@ -1,0 +1,19 @@
+Title: Verify item information when navigating through categories
+
+Preconditions:
+- A web browser is open
+- The user is on the eBay homepage (https://www.ebay.com)
+
+Steps:
+1. Open the eBay homepage
+2. Hover over the Electronics category in the menu
+3. Select Computers, Tablets & More
+4. Choose Computer Components & Parts from the category list
+5. Select any item from the list
+6. Get the main details (title, price, description)
+7. Click on the selected item to open its product page
+8. Compare the item information on the product page with the previously noted details
+
+Expected Result:
+- The item details (title, price, description) should match what was displayed in the item list
+- The product page should load correctly without errors
