@@ -1,6 +1,5 @@
 package com.solvd.ebay.utils;
 
-
 public class PriceUtils {
     public static Double extractPriceAsDouble(String priceString) {
         String cleaned = priceString.replaceAll("[^0-9.]", "");

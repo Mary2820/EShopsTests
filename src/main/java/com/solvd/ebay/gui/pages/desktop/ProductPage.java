@@ -1,6 +1,5 @@
 package com.solvd.ebay.gui.pages.desktop;
 
-import com.solvd.ebay.gui.components.ProductItem;
 import com.solvd.ebay.gui.pages.common.ProductPageBase;
 import com.solvd.ebay.utils.PriceUtils;
 import com.zebrunner.carina.utils.factory.DeviceType;
