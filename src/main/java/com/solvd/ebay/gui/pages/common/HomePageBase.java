@@ -19,12 +19,9 @@ public abstract class HomePageBase extends AbstractPage {
     @Override
     public void open() {
         super.open();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        acceptCookies.clickIfPresent(10);
+        acceptCookies.isPresent(20);
+        acceptCookies.isClickable(10);
+        acceptCookies.click();
     }
 
     public abstract SubCategoryPageBase selectSubcategory(String name);

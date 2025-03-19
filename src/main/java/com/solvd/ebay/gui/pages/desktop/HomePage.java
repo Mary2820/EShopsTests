@@ -4,6 +4,8 @@ import com.solvd.ebay.gui.pages.common.SubCategoryPageBase;
 import com.solvd.ebay.gui.pages.common.HomePageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -11,6 +13,7 @@ import java.util.List;
 
 @DeviceType(pageType = DeviceType.Type.DESKTOP, parentClass = HomePageBase.class)
 public class HomePage extends HomePageBase {
+    private static final Logger LOGGER = LogManager.getLogger(HomePage.class.getName());
 
     @FindBy(xpath = "//*[@id=\"vl-flyout-nav\"]/ul/li")
     private List<ExtendedWebElement> categoriesBar;
@@ -41,6 +44,7 @@ public class HomePage extends HomePageBase {
                 return initPage(getDriver(), SubCategoryPageBase.class);
             }
         }
-        throw new RuntimeException("Unable to open page : " + name);
+        LOGGER.error("Unable to open page : {}", name);
+        return null;
     }
 }

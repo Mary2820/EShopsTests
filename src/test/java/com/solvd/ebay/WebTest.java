@@ -1,5 +1,8 @@
 package com.solvd.ebay;
 
+import com.solvd.ebay.enums.homepage.Category;
+import com.solvd.ebay.enums.subcategorypage.ComputerTabletsNetworkingSubCategory;
+import com.solvd.ebay.enums.homepage.ElectronicsSubCategory;
 import com.solvd.ebay.gui.pages.common.ProductListingPageBase;
 import com.solvd.ebay.gui.pages.common.ProductPageBase;
 import com.solvd.ebay.gui.pages.common.SubCategoryPageBase;
@@ -23,9 +26,11 @@ public class WebTest implements IAbstractTest {
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
 
-        homePage.hoverOverCategory("Electronics");
-        SubCategoryPageBase categoryPage = homePage.selectSubcategory("Computers, Tablets & Network Hardware");
-        ProductListingPageBase productListingPage = categoryPage.selectCategory("Computer Components & Parts");
+        homePage.hoverOverCategory(Category.ELECTRONICS.getDisplayName());
+        SubCategoryPageBase categoryPage = homePage.selectSubcategory(ElectronicsSubCategory.
+                COMPUTERS_TABLETS_NETWORK.getDisplayName());
+        ProductListingPageBase productListingPage = categoryPage.selectCategory(ComputerTabletsNetworkingSubCategory.
+                COMPONENTS_PARTS.getDisplayName());
 
         String title = productListingPage.getProductTitle(1);
         Double[] listingPrice = productListingPage.getProductPrice(1);
