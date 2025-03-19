@@ -1,0 +1,27 @@
+Title: Search and Purchase an Item on eBay
+
+Preconditions:
+	•	A web browser is open
+	•	The user is on the eBay homepage (https://www.ebay.com)
+
+Steps:
+	1.	Open the eBay homepage
+	2.	Click on the Search bar
+	3.	Enter the keyword “BMW” and press Enter
+	4.	Navigate to the search results page
+	5.	Check the “New” filter checkbox
+	6.	Check the “Buy It Now” filter checkbox
+	7.	Select any item from the filtered results
+	8.	Click “Add to Cart”
+	9.	Click “See in Cart” to view the shopping cart
+	10.	Validate that the correct item appears in the cart (title, price, condition)
+	11.	Click “Go to Checkout”
+	12.	Select “Continue as Guest”
+	13.	Fill in the order details (shipping address, payment information, contact details)
+	14.	Click “Confirm and Pay”
+
+Expected Result:
+	•	The selected item should be correctly added to the cart
+	•	The cart should display the correct item details (title, price, condition)
+	•	The checkout process should proceed smoothly without errors
+	•	The order should be successfully placed after clicking “Confirm and Pay”

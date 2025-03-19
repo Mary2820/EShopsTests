@@ -1,0 +1,18 @@
+Title: Verify Weather Forecast on Yahoo
+
+Preconditions:
+	•	A web browser is open
+	•	The user is on the Yahoo homepage (https://www.yahoo.com)
+
+Steps:
+	1.	Open the Yahoo homepage
+	2.	Locate the Weather block on the homepage
+	3.	Click “See More” to open the full weather page
+	4.	Choose any city from the available list or search for a city
+	5.	View the weather forecast for any selected day
+	6.	Validate that the forecast details (temperature, weather condition, humidity, etc.) are displayed correctly
+
+Expected Result:
+	•	The user is redirected to the detailed weather page
+	•	The selected city’s weather forecast is displayed correctly
+	•	The forecast includes key details such as temperature, weather condition, and additional data

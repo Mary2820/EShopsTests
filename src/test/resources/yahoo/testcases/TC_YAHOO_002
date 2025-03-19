@@ -1,0 +1,19 @@
+Title: Verify Stock Data on Yahoo Finance
+
+Preconditions:
+	•	A web browser is open
+	•	The user is on the Yahoo homepage (https://www.yahoo.com)
+
+Steps:
+	1.	Open the Yahoo homepage
+	2.	Click on the “More” popup menu
+	3.	Select “Finance - Markets”
+	4.	Navigate to the “Most Active” stocks section
+	5.	Choose any stock from the list
+	6.	Click on any point on the stock price chart/diagram
+	7.	Compare the selected point’s price with the corresponding stock price displayed on the right side of the diagram
+
+Expected Result:
+	•	The user is redirected to the correct stock details page
+	•	The stock price on the diagram matches the value displayed on the right panel
+	•	The data updates correctly when interacting with the chart
