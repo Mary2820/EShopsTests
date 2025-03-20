@@ -7,12 +7,16 @@ import com.solvd.ebay.gui.pages.common.*;
 import com.zebrunner.agent.core.annotation.TestRailCaseId;
 import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
+import com.zebrunner.carina.dataprovider.IAbstractDataProvider;
+import com.zebrunner.carina.dataprovider.annotations.XlsDataSourceParameters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class WebTest implements IAbstractTest {
+import java.util.HashMap;
+
+public class WebTest implements IAbstractTest, IAbstractDataProvider {
     private static final Logger LOGGER = LogManager.getLogger(WebTest.class.getName());
 
     @Test
@@ -43,10 +47,11 @@ public class WebTest implements IAbstractTest {
             "Product price is not within expected range");
     }
 
-    @Test
+    @Test(dataProvider = "SingleDataProvider")
     @MethodOwner(owner = "Marina")
     @TestRailCaseId("TC_EBAY_001")
-    public void test2() {
+    @XlsDataSourceParameters(path = "ebay/data_source/shippingAddress.xlsx", sheet = "address", dsUid = "TUID")
+    public void test2(HashMap<String, String> testData) {
         HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
@@ -68,12 +73,18 @@ public class WebTest implements IAbstractTest {
 
         Assert.assertEquals(titleForProductPage, titleForCardPage, "Product titles don't match");
         Assert.assertEquals(priceForProductPage, priceForCardPage, "Product price is not within expected range");
+
+        CheckoutSignInPopupPageBase checkoutSignInPopup = cartPage.clickOnGoToCheckoutButton();
+        CheckoutPageBase checkoutPage = checkoutSignInPopup.clickContinueAsGuestButton();
+
+        checkoutPage.fillUserInformation(testData);
+        checkoutPage.clickOnDoneButton();
     }
 
-    @Test
-    @MethodOwner(owner = "Marina")
+    @Test(dataProvider = "SingleDataProvider")
     @TestRailCaseId("TC_EBAY_001")
-    public void test3() {
+    @XlsDataSourceParameters(path = "ebay/data_source/shippingAddress.xlsx", sheet = "address", dsUid = "TUID")
+    public void test3(HashMap<String, String> testData) {
         ProductPageBase productPage = initPage(getDriver(), ProductPageBase.class);
         productPage.open();
 
@@ -87,9 +98,11 @@ public class WebTest implements IAbstractTest {
         AddToCartDialogPageBase addToCartDialogPage = productPage.clickOnAddToCartButton();
         CartPageBase cartPage = addToCartDialogPage.clickOnSeeInCartButton();
         CheckoutSignInPopupPageBase checkoutSignInPopup = cartPage.clickOnGoToCheckoutButton();
-        checkoutSignInPopup.clickContinueAsGuestButton();
-
-
+        CheckoutPageBase checkoutPage = checkoutSignInPopup.clickContinueAsGuestButton();
+        checkoutPage.fillUserInformation(testData);
+        checkoutPage.clickOnDoneButton();
+        checkoutPage.selectPayViaPayPal();
+        checkoutPage.clickOnPayViaPayPalButton();
     }
 
 }
