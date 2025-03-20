@@ -1,6 +1,6 @@
 package com.solvd.ebay.gui.pages.desktop;
 
-import com.solvd.ebay.gui.components.ProductItem;
+import com.solvd.ebay.gui.components.ProductItemForListingPage;
 import com.solvd.ebay.gui.pages.common.ProductListingPageBase;
 import com.solvd.ebay.gui.pages.common.ProductPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
@@ -13,13 +13,13 @@ import java.util.List;
 public class ProductListingPage extends ProductListingPageBase {
 
     @FindBy(xpath = "//div[@class='brwrvr__item-card__body']")
-    private List<ProductItem> productsCards;
+    private List<ProductItemForListingPage> productsCards;
 
     public ProductListingPage(WebDriver driver) {
         super(driver);
     }
 
-    private ProductItem getProductItemByOrder(int number) {
+    private ProductItemForListingPage getProductItemByOrder(int number) {
         return productsCards.get(number - 1);
     }
 

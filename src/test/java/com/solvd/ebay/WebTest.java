@@ -3,10 +3,7 @@ package com.solvd.ebay;
 import com.solvd.ebay.enums.homepage.Category;
 import com.solvd.ebay.enums.subcategorypage.ComputerTabletsNetworkingSubCategory;
 import com.solvd.ebay.enums.homepage.ElectronicsSubCategory;
-import com.solvd.ebay.gui.pages.common.ProductListingPageBase;
-import com.solvd.ebay.gui.pages.common.ProductPageBase;
-import com.solvd.ebay.gui.pages.common.SubCategoryPageBase;
-import com.solvd.ebay.gui.pages.common.HomePageBase;
+import com.solvd.ebay.gui.pages.common.*;
 import com.zebrunner.agent.core.annotation.TestRailCaseId;
 import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
@@ -45,4 +42,54 @@ public class WebTest implements IAbstractTest {
         Assert.assertTrue(priceFromProductPage >= listingPrice[0] && priceFromProductPage <= listingPrice[1],
             "Product price is not within expected range");
     }
+
+    @Test
+    @MethodOwner(owner = "Marina")
+    @TestRailCaseId("TC_EBAY_001")
+    public void test2() {
+        HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
+        homePage.open();
+        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
+
+        SearchResultsPageBase searchResultsPage = homePage.search("bmw e30");
+
+        searchResultsPage = searchResultsPage.chooseBuyingFormat("Buy it now");
+        searchResultsPage = searchResultsPage.chooseCondition("New");
+
+        ProductPageBase productPage = searchResultsPage.clickOnCard(1);
+
+        String titleForProductPage = productPage.getTitle();
+        Double priceForProductPage = productPage.getPrice();
+
+        AddToCartDialogPageBase addToCartDialogPage = productPage.clickOnAddToCartButton();
+        CartPageBase cartPage = addToCartDialogPage.clickOnSeeInCartButton();
+        String titleForCardPage = cartPage.getProductTitle(1);
+        Double priceForCardPage = cartPage.getProductPrice(1);
+
+        Assert.assertEquals(titleForProductPage, titleForCardPage, "Product titles don't match");
+        Assert.assertEquals(priceForProductPage, priceForCardPage, "Product price is not within expected range");
+    }
+
+    @Test
+    @MethodOwner(owner = "Marina")
+    @TestRailCaseId("TC_EBAY_001")
+    public void test3() {
+        ProductPageBase productPage = initPage(getDriver(), ProductPageBase.class);
+        productPage.open();
+
+        try {
+            Thread.sleep(5000);
+            productPage.acceptCookies.click();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        AddToCartDialogPageBase addToCartDialogPage = productPage.clickOnAddToCartButton();
+        CartPageBase cartPage = addToCartDialogPage.clickOnSeeInCartButton();
+        CheckoutSignInPopupPageBase checkoutSignInPopup = cartPage.clickOnGoToCheckoutButton();
+        checkoutSignInPopup.clickContinueAsGuestButton();
+
+
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.solvd.ebay.gui.pages.desktop;
 
+import com.solvd.ebay.gui.components.header.Header;
+import com.solvd.ebay.gui.pages.common.SearchResultsPageBase;
 import com.solvd.ebay.gui.pages.common.SubCategoryPageBase;
 import com.solvd.ebay.gui.pages.common.HomePageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
@@ -14,6 +16,9 @@ import java.util.List;
 @DeviceType(pageType = DeviceType.Type.DESKTOP, parentClass = HomePageBase.class)
 public class HomePage extends HomePageBase {
     private static final Logger LOGGER = LogManager.getLogger(HomePage.class.getName());
+
+    @FindBy(className = "gh-header__main")
+    private Header header;
 
     @FindBy(xpath = "//*[@id=\"vl-flyout-nav\"]/ul/li")
     private List<ExtendedWebElement> categoriesBar;
@@ -46,5 +51,14 @@ public class HomePage extends HomePageBase {
         }
         LOGGER.error("Unable to open page : {}", name);
         return null;
+    }
+
+    public Header getHeader() {
+        return header;
+    }
+
+    @Override
+    public SearchResultsPageBase search(String searchText) {
+        return getHeader().search(searchText);
     }
 }

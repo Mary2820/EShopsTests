@@ -1,5 +1,6 @@
 package com.solvd.ebay.gui.pages.desktop;
 
+import com.solvd.ebay.gui.pages.common.AddToCartDialogPageBase;
 import com.solvd.ebay.gui.pages.common.ProductPageBase;
 import com.solvd.ebay.utils.PriceUtils;
 import com.zebrunner.carina.utils.factory.DeviceType;
@@ -19,6 +20,9 @@ public class ProductPage extends ProductPageBase {
     @FindBy(xpath = "//*[@class='x-price-primary']/span")
     private ExtendedWebElement price;
 
+    @FindBy(id = "atcBtn_btn_1")
+    private ExtendedWebElement addToCartButton;
+
     public ProductPage(WebDriver driver) {
         super(driver);
     }
@@ -33,6 +37,12 @@ public class ProductPage extends ProductPageBase {
     @Override
     public String getTitle() {
         return title.getText();
+    }
+
+    @Override
+    public AddToCartDialogPageBase clickOnAddToCartButton() {
+        addToCartButton.clickIfPresent();
+        return initPage(getDriver(), AddToCartDialogPageBase.class);
     }
 
 }
