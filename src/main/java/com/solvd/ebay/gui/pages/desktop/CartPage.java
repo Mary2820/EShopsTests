@@ -22,10 +22,6 @@ public class CartPage extends CartPageBase {
         super(driver);
     }
 
-    private ProductItemForCartPage getProductItemByOrder(int number) {
-        return productsCards.get(number - 1);
-    }
-
     @Override
     public String getProductTitle(int number) {
         return getProductItemByOrder(number).getTitle();
@@ -40,5 +36,9 @@ public class CartPage extends CartPageBase {
     public CheckoutSignInPopupPageBase clickOnGoToCheckoutButton() {
         goToCheckoutButton.clickIfPresent();
         return initPage(getDriver(), CheckoutSignInPopupPageBase.class);
+    }
+
+    private ProductItemForCartPage getProductItemByOrder(int number) {
+        return productsCards.get(number - 1);
     }
 }

@@ -82,7 +82,7 @@ public class ShippingAddressForm extends AbstractUIObject {
     }
 
     public void typePostalCode(String postalCode) {
-        postalCodeField.getElement().clear();
+        postalCodeField.click();
         postalCodeField.type(postalCode);
     }
 

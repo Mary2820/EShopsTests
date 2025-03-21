@@ -16,5 +16,7 @@ public abstract class CheckoutPageBase extends AbstractPage {
 
     public abstract void selectPayViaPayPal();
 
-    public abstract void clickOnPayViaPayPalButton();
+    public abstract PayPalPageBase clickOnPayViaPayPalButton();
+
+    public abstract void closeSelectCurrencyPopup();
 }

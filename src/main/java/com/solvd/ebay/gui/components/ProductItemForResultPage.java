@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class ProductItemForResultPage extends AbstractUIObject {
-    @FindBy(xpath = "//*[@class='s-item__title']/span/span")
+    @FindBy(xpath = ".//a[@class='s-item__link']")
     private ExtendedWebElement title;
 
     public ProductItemForResultPage(WebDriver driver, SearchContext searchContext) {

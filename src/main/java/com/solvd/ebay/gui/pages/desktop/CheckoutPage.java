@@ -2,6 +2,7 @@ package com.solvd.ebay.gui.pages.desktop;
 
 import com.solvd.ebay.gui.components.ShippingAddressForm;
 import com.solvd.ebay.gui.pages.common.CheckoutPageBase;
+import com.solvd.ebay.gui.pages.common.PayPalPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import org.openqa.selenium.WebDriver;
@@ -17,8 +18,11 @@ public class CheckoutPage extends CheckoutPageBase {
     @FindBy(xpath = "//*[@class='payment-entry--PAYPAL payment-entry']")
     private ExtendedWebElement payPalPaymentEntry;
 
-    @FindBy(id = "PAYPAL_CTA_BUTTON")
+    @FindBy(xpath = "//*[@data-test-id='PAYPAL_CTA_BUTTON']//button")
     private ExtendedWebElement payViaPayPalButton;
+
+    @FindBy(xpath = "//button[@class='icon-btn lightbox-dialog__close']")
+    private ExtendedWebElement closeSelectCurrencyPopupButton;
 
     public CheckoutPage(WebDriver driver) {
         super(driver);
@@ -32,7 +36,6 @@ public class CheckoutPage extends CheckoutPageBase {
         shippingAddressForm.typeAddress(testData.get("Address"));
         shippingAddressForm.typeCity(testData.get("City"));
         shippingAddressForm.selectStateOrProvince(testData.get("State/Province"));
-        shippingAddressForm.typePostalCode(testData.get("PostCode"));
         shippingAddressForm.typeEmail(testData.get("Email"));
         shippingAddressForm.typeConfirmEmail(testData.get("Email"));
         shippingAddressForm.typePhoneNumber(testData.get("PhoneNumber"));
@@ -49,7 +52,13 @@ public class CheckoutPage extends CheckoutPageBase {
     }
 
     @Override
-    public void clickOnPayViaPayPalButton(){
+    public PayPalPageBase clickOnPayViaPayPalButton(){
         payViaPayPalButton.click();
+        return initPage(getDriver(), PayPalPageBase.class);
+    }
+
+    @Override
+    public void closeSelectCurrencyPopup() {
+        closeSelectCurrencyPopupButton.click();
     }
 }

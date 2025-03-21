@@ -22,9 +22,6 @@ public class CarAndTracksResultsPage extends SearchResultsPageBase {
     @FindBy(xpath = "//*[@class='srp-results srp-list clearfix']//*[@class='s-item__wrapper clearfix']")
     private List<ProductItemForResultPage> productsCards;
 
-    @FindBy(xpath = "//*[@class='tourtip__overlay']//button")
-    private ExtendedWebElement popupCloseButton;
-
     public CarAndTracksResultsPage(WebDriver driver) {
         super(driver);
     }
@@ -55,20 +52,15 @@ public class CarAndTracksResultsPage extends SearchResultsPageBase {
         return this;
     }
 
-    private ProductItemForResultPage getProductItemByOrder(int number) {
-        return productsCards.get(number - 1);
-    }
-
-    @Override
-    public void closePopup() {
-        popupCloseButton.click();
-    }
-
     @Override
     public ProductPageBase clickOnCard(int number) {
         getProductItemByOrder(number).clickOnTitle();
         WindowUtils.switchToNewTabAndCloseOld(getDriver());
 
         return initPage(getDriver(), ProductPageBase.class);
+    }
+
+    private ProductItemForResultPage getProductItemByOrder(int number) {
+        return productsCards.get(number - 1);
     }
 }

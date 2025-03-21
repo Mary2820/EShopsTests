@@ -20,11 +20,6 @@ public abstract class HomePageBase extends AbstractPage {
     @Override
     public void open() {
         super.open();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         waitUntil(ExpectedConditions.presenceOfElementLocated(acceptCookies.getBy()), 10);
         waitUntil(ExpectedConditions.visibilityOfElementLocated(acceptCookies.getBy()), 10);
         waitUntil(ExpectedConditions.elementToBeClickable(acceptCookies.getBy()), 10);

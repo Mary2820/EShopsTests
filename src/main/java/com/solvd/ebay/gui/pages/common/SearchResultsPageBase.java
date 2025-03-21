@@ -12,7 +12,5 @@ public abstract class SearchResultsPageBase extends AbstractPage {
 
     public abstract SearchResultsPageBase chooseBuyingFormat(String formatName);
 
-    public abstract void closePopup();
-
     public abstract ProductPageBase clickOnCard(int number);
 }

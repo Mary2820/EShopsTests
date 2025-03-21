@@ -19,10 +19,6 @@ public class ProductListingPage extends ProductListingPageBase {
         super(driver);
     }
 
-    private ProductItemForListingPage getProductItemByOrder(int number) {
-        return productsCards.get(number - 1);
-    }
-
     @Override
     public String getProductTitle(int number) {
         return getProductItemByOrder(number).getTitle();
@@ -38,4 +34,9 @@ public class ProductListingPage extends ProductListingPageBase {
         getProductItemByOrder(number).clickOnTitle();
         return initPage(getDriver(), ProductPageBase.class);
     }
+
+    private ProductItemForListingPage getProductItemByOrder(int number) {
+        return productsCards.get(number - 1);
+    }
+
 }

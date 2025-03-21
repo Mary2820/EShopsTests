@@ -13,7 +13,7 @@ import java.util.List;
 public class SubCategoryPage extends SubCategoryPageBase {
 
     @FindBy(xpath = "//li/section/div/ul/li")
-    private List<ExtendedWebElement> categoryLinks;
+    private List<ExtendedWebElement> categoriesLinks;
 
     public SubCategoryPage(WebDriver driver) {
         super(driver);
@@ -21,7 +21,7 @@ public class SubCategoryPage extends SubCategoryPageBase {
 
     @Override
     public ProductListingPageBase selectCategory(String name) {
-        for (ExtendedWebElement link : categoryLinks) {
+        for (ExtendedWebElement link : categoriesLinks) {
             String current = link.getText();
             if (name.equalsIgnoreCase(current)) {
                 link.click();

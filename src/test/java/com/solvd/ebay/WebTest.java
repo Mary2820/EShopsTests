@@ -1,6 +1,8 @@
 package com.solvd.ebay;
 
 import com.solvd.ebay.enums.homepage.Category;
+import com.solvd.ebay.enums.serchresultpage.BuyingFormat;
+import com.solvd.ebay.enums.serchresultpage.Condition;
 import com.solvd.ebay.enums.subcategorypage.ComputerTabletsNetworkingSubCategory;
 import com.solvd.ebay.enums.homepage.ElectronicsSubCategory;
 import com.solvd.ebay.gui.pages.common.*;
@@ -49,17 +51,17 @@ public class WebTest implements IAbstractTest, IAbstractDataProvider {
 
     @Test(dataProvider = "SingleDataProvider")
     @MethodOwner(owner = "Marina")
-    @TestRailCaseId("TC_EBAY_001")
+    @TestRailCaseId("TC_EBAY_002")
     @XlsDataSourceParameters(path = "ebay/data_source/shippingAddress.xlsx", sheet = "address", dsUid = "TUID")
-    public void test2(HashMap<String, String> testData) {
+    public void verifySearchAndPurchaseItem(HashMap<String, String> testData) {
         HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
         homePage.open();
         Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
 
         SearchResultsPageBase searchResultsPage = homePage.search("bmw e30");
 
-        searchResultsPage = searchResultsPage.chooseBuyingFormat("Buy it now");
-        searchResultsPage = searchResultsPage.chooseCondition("New");
+        searchResultsPage = searchResultsPage.chooseBuyingFormat(BuyingFormat.BUY_IT_NOW.getName());
+        searchResultsPage = searchResultsPage.chooseCondition(Condition.NEW.getName());
 
         ProductPageBase productPage = searchResultsPage.clickOnCard(1);
 
@@ -79,30 +81,11 @@ public class WebTest implements IAbstractTest, IAbstractDataProvider {
 
         checkoutPage.fillUserInformation(testData);
         checkoutPage.clickOnDoneButton();
-    }
 
-    @Test(dataProvider = "SingleDataProvider")
-    @TestRailCaseId("TC_EBAY_001")
-    @XlsDataSourceParameters(path = "ebay/data_source/shippingAddress.xlsx", sheet = "address", dsUid = "TUID")
-    public void test3(HashMap<String, String> testData) {
-        ProductPageBase productPage = initPage(getDriver(), ProductPageBase.class);
-        productPage.open();
-
-        try {
-            Thread.sleep(5000);
-            productPage.acceptCookies.click();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        AddToCartDialogPageBase addToCartDialogPage = productPage.clickOnAddToCartButton();
-        CartPageBase cartPage = addToCartDialogPage.clickOnSeeInCartButton();
-        CheckoutSignInPopupPageBase checkoutSignInPopup = cartPage.clickOnGoToCheckoutButton();
-        CheckoutPageBase checkoutPage = checkoutSignInPopup.clickContinueAsGuestButton();
-        checkoutPage.fillUserInformation(testData);
-        checkoutPage.clickOnDoneButton();
         checkoutPage.selectPayViaPayPal();
-        checkoutPage.clickOnPayViaPayPalButton();
-    }
+        checkoutPage.closeSelectCurrencyPopup();
 
+        PayPalPageBase payPalPage = checkoutPage.clickOnPayViaPayPalButton();
+        Assert.assertEquals(payPalPage.getHeaderText(), "Pay with PayPal");
+    }
 }

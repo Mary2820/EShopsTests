@@ -24,7 +24,7 @@ public class HomePage extends HomePageBase {
     private List<ExtendedWebElement> categoriesBar;
 
     @FindBy(xpath = "//*[@id=\"vl-flyout-nav\"]/ul/li[4]/div[2]/div[1]/nav[1]/ul/li/a")
-    private List<ExtendedWebElement> subcategoryLinks;
+    private List<ExtendedWebElement> subcategoriesLinks;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -42,7 +42,7 @@ public class HomePage extends HomePageBase {
 
     @Override
     public SubCategoryPageBase selectSubcategory(String name) {
-        for (ExtendedWebElement link : subcategoryLinks) {
+        for (ExtendedWebElement link : subcategoriesLinks) {
             String current = link.getText();
             if (name.equalsIgnoreCase(current)) {
                 link.click();
