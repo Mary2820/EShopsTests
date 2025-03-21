@@ -7,42 +7,46 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class DayForecast extends AbstractUIObject {
-    @FindBy(xpath = "//*[@id=\"module-weather-forecast\"]/table/tbody/tr/td[1]")
-    private ExtendedWebElement dayOfWeek;
+    @FindBy(xpath = "./td[1]")
+    private ExtendedWebElement dayOfWeekName;
 
     public DayForecast(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
     }
 
-    @FindBy(xpath = "//*[@id=\"module-weather-forecast\"]/table/tbody/tr/td[3]/dl/dd")
+    @FindBy(xpath = "./td[3]/dl/dd")
     private ExtendedWebElement amountOfPrecipitation;
 
-    @FindBy(xpath = "//*[@id=\"module-weather-forecast\"]/table/tbody/tr/td[4]/dl/dd[1]")
+    @FindBy(xpath = "./td[4]/dl/dd[1]")
     private ExtendedWebElement maxTemperature;
 
-    @FindBy(xpath = "//*[@id=\"module-weather-forecast\"]/table/tbody/tr/td[4]/dl/dd[3]")
+    @FindBy(xpath = "./td[4]/dl/dd[3]")
     private ExtendedWebElement minTemperature;
 
-    @FindBy(xpath = "//*[@id=\"module-weather-forecast\"]/table/tbody/tr/td[5]")
+    @FindBy(xpath = "./td[5]")
     private ExtendedWebElement moreDetails;
 
-    public String getDayOfWeek() {
-        return dayOfWeek.getText();
+    public String getDayOfWeekName() {
+        return dayOfWeekName.getText();
     }
 
-    public String getAmountOfPrecipitation() {
-        return amountOfPrecipitation.getText();
+    public boolean IsDayOfWeekNamePresent(){
+        return dayOfWeekName.isPresent();
     }
 
-    public String getMaxTemperature() {
-        return maxTemperature.getText();
+    public boolean IsAmountOfPrecipitationPresent(){
+        return amountOfPrecipitation.isPresent();
     }
 
-    public String getMinTemperature() {
-        return minTemperature.getText();
+    public boolean IsMaxTemperaturePresent(){
+        return maxTemperature.isPresent();
     }
 
-    public String getMoreDetails() {
-        return moreDetails.getText();
+    public boolean IsMinTemperaturePresent(){
+        return minTemperature.isPresent();
+    }
+
+    public boolean IsMoreDetailsTextPresent(){
+        return moreDetails.isPresent();
     }
 }

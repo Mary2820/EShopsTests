@@ -24,6 +24,9 @@ public class ForecastPage extends ForecastPageBase {
     @FindBy(xpath = "//*[@id=\"module-weather-forecast\"]/table/tbody/tr")
     private List<DayForecast> dayForecasts;
 
+    @FindBy(id = "module-weather-forecast")
+    private ExtendedWebElement forecastModule;
+
     public ForecastPage(WebDriver driver) {
         super(driver);
     }
@@ -47,28 +50,16 @@ public class ForecastPage extends ForecastPageBase {
     }
 
     @Override
-    public String getMaxTemperature(String dayOfWeek){
-        DayForecast dayForecast = getDayForecast(dayOfWeek);
-        return dayForecast.getMaxTemperature();
+    public void scrollToForecastModule() {
+        forecastModule.scrollTo();
     }
 
     @Override
-    public String getMinTemperature(String dayOfWeek){
-        DayForecast dayForecast = getDayForecast(dayOfWeek);
-        return dayForecast.getMinTemperature();
-    }
-
-    @Override
-    public String getMoreDetails(String dayOfWeek) {
-        DayForecast dayForecast = getDayForecast(dayOfWeek);
-        return dayForecast.getMoreDetails();
-    }
-
-
-    private DayForecast getDayForecast(String dayOfWeek) {
+    public DayForecast getDayForecast(String dayOfWeek) {
         for (DayForecast dayForecast : dayForecasts){
-            String current = dayForecast.getDayOfWeek();
-            if (current.equalsIgnoreCase(dayOfWeek)) {
+            dayForecast.scrollTo();
+            String current = dayForecast.getDayOfWeekName();
+            if (current.contains(dayOfWeek)) {
                 return dayForecast;
             }
         }
