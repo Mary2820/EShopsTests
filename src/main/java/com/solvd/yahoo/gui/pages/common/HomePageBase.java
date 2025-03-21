@@ -25,4 +25,6 @@ public abstract class HomePageBase extends AbstractPage {
     }
 
     public abstract ForecastPageBase moveToForecastPage();
+
+    public abstract FinancePageBase moveToFinancePage();
 }
