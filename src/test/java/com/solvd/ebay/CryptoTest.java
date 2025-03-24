@@ -10,17 +10,17 @@ public class CryptoTest implements IAbstractTest {
 
     @Test
     public void testPlaceholdersWithEncryptionTestData() {
-        assertEquals(R.TESTDATA.get("test_credentials"), "test@gmail.com/EncryptMe");
+        assertEquals(R.TESTDATA.getDecrypted("test_credentials"), "test@gmail.com/MySecretPassword123");
     }
 
     @Test
     public void testEncryption() {
-        assertEquals(R.CONFIG.get("password"), "EncryptMe");
+        assertEquals(R.CONFIG.getDecrypted("password"), "MySecretPassword123");
     }
 
     @Test
     public void testPlaceholdersWithEncryption() {
-        assertEquals(R.CONFIG.get("credentials"), "test@gmail.com/EncryptMe");
+        assertEquals(R.CONFIG.getDecrypted("credentials"), "test@gmail.com/MySecretPassword123");
     }
 
 }
