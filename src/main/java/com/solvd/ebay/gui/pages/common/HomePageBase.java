@@ -1,5 +1,6 @@
 package com.solvd.ebay.gui.pages.common;
 
+import com.solvd.ebay.gui.pages.desktop.HomeLocalePage;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
@@ -20,6 +21,12 @@ public abstract class HomePageBase extends AbstractPage {
     @Override
     public void open() {
         super.open();
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         waitUntil(ExpectedConditions.presenceOfElementLocated(acceptCookies.getBy()), 10);
         waitUntil(ExpectedConditions.visibilityOfElementLocated(acceptCookies.getBy()), 10);
         waitUntil(ExpectedConditions.elementToBeClickable(acceptCookies.getBy()), 10);
@@ -29,4 +36,8 @@ public abstract class HomePageBase extends AbstractPage {
     public abstract SubCategoryPageBase selectSubcategory(String name);
 
     public abstract SearchResultsPageBase search(String searchText);
+
+    public abstract void hoverOverSelectCountryButton();
+
+    public abstract HomeLocalePage moveToHomeLocalePage(String countryName);
 }

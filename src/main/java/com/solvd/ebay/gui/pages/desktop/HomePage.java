@@ -1,5 +1,6 @@
 package com.solvd.ebay.gui.pages.desktop;
 
+import com.solvd.ebay.gui.components.footer.Footer;
 import com.solvd.ebay.gui.components.header.Header;
 import com.solvd.ebay.gui.pages.common.SearchResultsPageBase;
 import com.solvd.ebay.gui.pages.common.SubCategoryPageBase;
@@ -25,6 +26,9 @@ public class HomePage extends HomePageBase {
 
     @FindBy(xpath = "//*[@id=\"vl-flyout-nav\"]/ul/li[4]/div[2]/div[1]/nav[1]/ul/li/a")
     private List<ExtendedWebElement> subcategoriesLinks;
+
+    @FindBy(id = "glbfooter")
+    private Footer footer;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -61,4 +65,15 @@ public class HomePage extends HomePageBase {
     public SearchResultsPageBase search(String searchText) {
         return getHeader().search(searchText);
     }
+
+    @Override
+    public void hoverOverSelectCountryButton(){
+        footer.hoverOverSelectCountryButton();
+    }
+
+    @Override
+    public HomeLocalePage moveToHomeLocalePage(String countryName) {
+        return footer.moveToLocalHomePage(countryName);
+    }
+
 }
