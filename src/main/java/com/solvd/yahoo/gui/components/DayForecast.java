@@ -30,23 +30,23 @@ public class DayForecast extends AbstractUIObject {
         return dayOfWeekName.getText();
     }
 
-    public boolean IsDayOfWeekNamePresent(){
+    public boolean isDayOfWeekNamePresent(){
         return dayOfWeekName.isPresent();
     }
 
-    public boolean IsAmountOfPrecipitationPresent(){
+    public boolean isAmountOfPrecipitationPresent(){
         return amountOfPrecipitation.isPresent();
     }
 
-    public boolean IsMaxTemperaturePresent(){
+    public boolean isMaxTemperaturePresent(){
         return maxTemperature.isPresent();
     }
 
-    public boolean IsMinTemperaturePresent(){
+    public boolean isMinTemperaturePresent(){
         return minTemperature.isPresent();
     }
 
-    public boolean IsMoreDetailsTextPresent(){
+    public boolean isMoreDetailsTextPresent(){
         return moreDetails.isPresent();
     }
 }

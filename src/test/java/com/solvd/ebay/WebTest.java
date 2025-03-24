@@ -16,6 +16,8 @@ import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static com.solvd.ebay.data.Constants.TestData.CARD_NUMBER;
+
 import java.util.HashMap;
 
 public class WebTest implements IAbstractTest, IAbstractDataProvider {
@@ -35,11 +37,11 @@ public class WebTest implements IAbstractTest, IAbstractDataProvider {
         ProductListingPageBase productListingPage = categoryPage.selectCategory(ComputerTabletsNetworkingSubCategory.
                 COMPONENTS_PARTS.getDisplayName());
 
-        String title = productListingPage.getProductTitle(1);
-        Double[] listingPrice = productListingPage.getProductPrice(1);
+        String title = productListingPage.getProductTitle(CARD_NUMBER);
+        Double[] listingPrice = productListingPage.getProductPrice(CARD_NUMBER);
         LOGGER.info("Product from listing page - title: {}, price range: {} - {}", title, listingPrice[0], listingPrice[1]);
 
-        ProductPageBase productPage = productListingPage.clickOnCard(1);
+        ProductPageBase productPage = productListingPage.clickOnCard(CARD_NUMBER);
         String titleFromProductPage = productPage.getTitle();
         Double priceFromProductPage = productPage.getPrice();
         LOGGER.info("Product from product page - title: {}, price: {}", titleFromProductPage, priceFromProductPage);
@@ -63,15 +65,15 @@ public class WebTest implements IAbstractTest, IAbstractDataProvider {
         searchResultsPage = searchResultsPage.chooseBuyingFormat(BuyingFormat.BUY_IT_NOW.getName());
         searchResultsPage = searchResultsPage.chooseCondition(Condition.NEW.getName());
 
-        ProductPageBase productPage = searchResultsPage.clickOnCard(1);
+        ProductPageBase productPage = searchResultsPage.clickOnCard(CARD_NUMBER);
 
         String titleForProductPage = productPage.getTitle();
         Double priceForProductPage = productPage.getPrice();
 
         AddToCartDialogPageBase addToCartDialogPage = productPage.clickOnAddToCartButton();
         CartPageBase cartPage = addToCartDialogPage.clickOnSeeInCartButton();
-        String titleForCardPage = cartPage.getProductTitle(1);
-        Double priceForCardPage = cartPage.getProductPrice(1);
+        String titleForCardPage = cartPage.getProductTitle(CARD_NUMBER);
+        Double priceForCardPage = cartPage.getProductPrice(CARD_NUMBER);
 
         Assert.assertEquals(titleForProductPage, titleForCardPage, "Product titles don't match");
         Assert.assertEquals(priceForProductPage, priceForCardPage, "Product price is not within expected range");
