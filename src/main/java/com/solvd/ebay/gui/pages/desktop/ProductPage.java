@@ -23,6 +23,9 @@ public class ProductPage extends ProductPageBase {
     @FindBy(id = "atcBtn_btn_1")
     private ExtendedWebElement addToCartButton;
 
+    @FindBy(xpath = "//*[@id='nid-yl6-43']/button")
+    private ExtendedWebElement productConditionButton;
+
     public ProductPage(WebDriver driver) {
         super(driver);
     }

@@ -13,7 +13,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-@DeviceType(pageType = DeviceType.Type.DESKTOP, parentClass = ForecastPageBase.class)
+@DeviceType(pageType = DeviceType.Type.DESKTOP, parentClass = FinancePageBase.class)
 public class FinancePage extends FinancePageBase {
     private static final Logger LOGGER = LogManager.getLogger(FinancePage.class.getName());
     @FindBy(xpath = "//div[@id='ybar-navigation']//span")

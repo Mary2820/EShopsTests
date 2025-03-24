@@ -13,10 +13,11 @@ import com.zebrunner.carina.dataprovider.IAbstractDataProvider;
 import com.zebrunner.carina.dataprovider.annotations.XlsDataSourceParameters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static com.solvd.ebay.data.Constants.TestData.CARD_NUMBER;
+import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.assertEquals;
 
 import java.util.HashMap;
 
@@ -29,7 +30,7 @@ public class WebTest implements IAbstractTest, IAbstractDataProvider {
     public void verifyProductDetailsFromListingToProductPage() {
         HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
         homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
+        assertTrue(homePage.isPageOpened(), "Home page is not opened");
 
         homePage.hoverOverCategory(Category.ELECTRONICS.getDisplayName());
         SubCategoryPageBase categoryPage = homePage.selectSubcategory(ElectronicsSubCategory.
@@ -46,8 +47,8 @@ public class WebTest implements IAbstractTest, IAbstractDataProvider {
         Double priceFromProductPage = productPage.getPrice();
         LOGGER.info("Product from product page - title: {}, price: {}", titleFromProductPage, priceFromProductPage);
 
-        Assert.assertEquals(title, titleFromProductPage, "Product titles don't match");
-        Assert.assertTrue(priceFromProductPage >= listingPrice[0] && priceFromProductPage <= listingPrice[1],
+        assertEquals(title, titleFromProductPage, "Product titles don't match");
+        assertTrue(priceFromProductPage >= listingPrice[0] && priceFromProductPage <= listingPrice[1],
             "Product price is not within expected range");
     }
 
@@ -58,7 +59,7 @@ public class WebTest implements IAbstractTest, IAbstractDataProvider {
     public void verifySearchAndPurchaseItem(HashMap<String, String> testData) {
         HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
         homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
+        assertTrue(homePage.isPageOpened(), "Home page is not opened");
 
         SearchResultsPageBase searchResultsPage = homePage.search("bmw e30");
 
@@ -75,8 +76,8 @@ public class WebTest implements IAbstractTest, IAbstractDataProvider {
         String titleForCardPage = cartPage.getProductTitle(CARD_NUMBER);
         Double priceForCardPage = cartPage.getProductPrice(CARD_NUMBER);
 
-        Assert.assertEquals(titleForProductPage, titleForCardPage, "Product titles don't match");
-        Assert.assertEquals(priceForProductPage, priceForCardPage, "Product price is not within expected range");
+        assertEquals(titleForProductPage, titleForCardPage, "Product titles don't match");
+        assertEquals(priceForProductPage, priceForCardPage, "Product price is not within expected range");
 
         CheckoutSignInPopupPageBase checkoutSignInPopup = cartPage.clickOnGoToCheckoutButton();
         CheckoutPageBase checkoutPage = checkoutSignInPopup.clickContinueAsGuestButton();
@@ -88,6 +89,6 @@ public class WebTest implements IAbstractTest, IAbstractDataProvider {
         checkoutPage.closeSelectCurrencyPopup();
 
         PayPalPageBase payPalPage = checkoutPage.clickOnPayViaPayPalButton();
-        Assert.assertEquals(payPalPage.getHeaderText(), "Pay with PayPal");
+        assertEquals(payPalPage.getHeaderText(), "Pay with PayPal");
     }
 }
