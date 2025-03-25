@@ -10,7 +10,7 @@ public abstract class TickerPageBase extends AbstractPage {
     public TickerPageBase(WebDriver driver) {
         super(driver);
     }
-    
+
     public abstract Chart getChart();
 
     public abstract Tooltip getTooltip();

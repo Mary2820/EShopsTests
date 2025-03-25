@@ -32,5 +32,4 @@ public class HomePage extends HomePageBase {
     public FinancePageBase moveToFinancePage() {
         return header.clickOnFinanceLink();
     }
-
 }

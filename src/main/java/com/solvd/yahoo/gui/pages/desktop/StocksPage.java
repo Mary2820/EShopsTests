@@ -34,6 +34,4 @@ public class StocksPage extends SubCategoryPageBase {
         LOGGER.error("Unable to move to page for : {}", tickerName);
         return null;
     }
-
-
 }

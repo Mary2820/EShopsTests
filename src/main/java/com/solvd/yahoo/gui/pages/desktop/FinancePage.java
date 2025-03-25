@@ -46,7 +46,4 @@ public class FinancePage extends FinancePageBase {
         LOGGER.error("Unable to open page : {}", name);
         return null;
     }
-
-
-
 }

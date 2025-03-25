@@ -6,7 +6,6 @@ import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
-
 public class Header extends HeaderBase{
     @FindBy(xpath = "//*[@id=\"ybar-l1-nav\"]/li[2]/a")
     private ExtendedWebElement financeLink;

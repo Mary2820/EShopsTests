@@ -28,5 +28,4 @@ public class TickerPage extends TickerPageBase {
     public Tooltip getTooltip() {
         return tooltip;
     }
-
 }
