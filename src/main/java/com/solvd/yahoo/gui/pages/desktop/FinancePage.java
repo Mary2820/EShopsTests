@@ -1,9 +1,7 @@
 package com.solvd.yahoo.gui.pages.desktop;
 
-import com.solvd.yahoo.enums.financepage.Category;
 import com.solvd.yahoo.gui.pages.common.FinancePageBase;
-import com.solvd.yahoo.gui.pages.common.ForecastPageBase;
-import com.solvd.yahoo.gui.pages.common.MarketsOverviewPageBase;
+import com.solvd.yahoo.gui.pages.common.SubCategoryPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import org.apache.logging.log4j.LogManager;
@@ -19,20 +17,33 @@ public class FinancePage extends FinancePageBase {
     @FindBy(xpath = "//div[@id='ybar-navigation']//span")
     private List<ExtendedWebElement> categoriesBar;
 
+    @FindBy(xpath = "//*[@id=\"ybar-navigation\"]/div/ul/li[3]/div/ul/li/a/div")
+    private List<ExtendedWebElement> marketSubcategoriesLinks;
+
     public FinancePage(WebDriver driver) {
         super(driver);
     }
 
     @Override
-    public MarketsOverviewPageBase moveToMarketOverridePage() {
+    public void hoverOverCategory(String categoryName) {
         for (ExtendedWebElement category : categoriesBar) {
             String currentCategoryName = category.getText();
-            if (currentCategoryName.equalsIgnoreCase(Category.MARKETS.getDisplayName())) {
-                category.click();
-                return initPage(getDriver(), MarketsOverviewPageBase.class);
+            if (categoryName.equalsIgnoreCase(currentCategoryName)) {
+                category.hover();
             }
         }
-        LOGGER.error("Unable to open Markets Overview page ");
+    }
+
+    @Override
+    public SubCategoryPageBase selectSubcategory(String name) {
+        for (ExtendedWebElement link : marketSubcategoriesLinks) {
+            String current = link.getText();
+            if (name.equalsIgnoreCase(current)) {
+                link.click();
+                return initPage(getDriver(), SubCategoryPageBase.class);
+            }
+        }
+        LOGGER.error("Unable to open page : {}", name);
         return null;
     }
 

@@ -1,11 +1,11 @@
 package com.solvd.yahoo;
 
 import com.solvd.yahoo.enums.PopularCity;
+import com.solvd.yahoo.enums.financepage.Category;
+import com.solvd.yahoo.gui.components.Chart;
 import com.solvd.yahoo.gui.components.DayForecast;
-import com.solvd.yahoo.gui.pages.common.FinancePageBase;
-import com.solvd.yahoo.gui.pages.common.ForecastPageBase;
-import com.solvd.yahoo.gui.pages.common.HomePageBase;
-import com.solvd.yahoo.gui.pages.common.MarketsOverviewPageBase;
+import com.solvd.yahoo.gui.components.Tooltip;
+import com.solvd.yahoo.gui.pages.common.*;
 import com.zebrunner.agent.core.annotation.TestRailCaseId;
 import com.zebrunner.carina.core.IAbstractTest;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
@@ -13,7 +13,10 @@ import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.assertEquals;
 import static com.solvd.yahoo.data.Constants.TestData.DAY_OF_WEEK;
+import static com.solvd.yahoo.data.Constants.TestData.SUBCATEGORY;
+import static com.solvd.yahoo.enums.TooltipField.*;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class WebTest implements IAbstractTest {
@@ -39,16 +42,37 @@ public class WebTest implements IAbstractTest {
         assertTrue(dayForecast.isMoreDetailsTextPresent());
     }
 
-    @Test
+    @DataProvider(name = "stockTestData")
+    public Object[][] getTestData() {
+        return new Object[][] {
+                {"TSLA", "1M", 0.5, 0.2},
+                {"NVDA", "1D", 0.7, 0.15},
+        };
+    }
+
+    @Test(dataProvider = "stockTestData")
     @MethodOwner(owner = "Marina")
     @TestRailCaseId("TC_YAHOO_002")
-    public void verifyStockData() {
+    public void verifyStockData(String tickerName, String period, double xPosition, double yPosition) {
         HomePageBase homePage = initPage(getDriver(), HomePageBase.class);
         homePage = homePage.openAndReturn();
 
         FinancePageBase financePage = homePage.moveToFinancePage();
-        MarketsOverviewPageBase marketsOverviewPage = financePage.moveToMarketOverridePage();
-        assertTrue(marketsOverviewPage.isPageOpened());
-    }
+        financePage.hoverOverCategory(Category.MARKETS.getDisplayName());
+        SubCategoryPageBase stockPage = financePage.selectSubcategory(SUBCATEGORY);
+        TickerPageBase tickerPage = stockPage.selectTickerByName(tickerName);
+        Chart chart = tickerPage.getChart();
+        chart.selectPeriod(period);
+        chart.hoverChartAndCheckTooltip(xPosition, yPosition);
 
+        Tooltip tooltip = tickerPage.getTooltip();
+
+        assertTrue(tooltip.isPresent());
+        assertTrue(tooltip.getDateFieldName().equalsIgnoreCase(DATE.getFieldName()));
+        assertTrue(tooltip.getCloseFieldName().equalsIgnoreCase(CLOSE.getFieldName()));
+        assertTrue(tooltip.getOpenFieldName().equalsIgnoreCase(OPEN.getFieldName()));
+        assertTrue(tooltip.getHighFieldName().equalsIgnoreCase(HIGH.getFieldName()));
+        assertTrue(tooltip.getLowFieldName().equalsIgnoreCase(LOW.getFieldName()));
+        assertTrue(tooltip.getVolumeFieldName().equalsIgnoreCase(VOLUME.getFieldName()));
+    }
 }

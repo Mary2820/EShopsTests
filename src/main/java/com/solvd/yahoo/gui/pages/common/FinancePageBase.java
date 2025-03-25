@@ -8,5 +8,7 @@ public abstract class FinancePageBase extends AbstractPage {
         super(driver);
     }
 
-    public abstract MarketsOverviewPageBase moveToMarketOverridePage();
+    public abstract void hoverOverCategory(String categoryName);
+
+    public abstract SubCategoryPageBase selectSubcategory(String name);
 }

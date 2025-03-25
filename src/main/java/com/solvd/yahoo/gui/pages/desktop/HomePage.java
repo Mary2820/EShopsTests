@@ -1,7 +1,7 @@
 package com.solvd.yahoo.gui.pages.desktop;
 
 import com.solvd.yahoo.gui.components.WeatherModule;
-import com.solvd.yahoo.gui.components.header.HeaderBase;
+import com.solvd.yahoo.gui.components.header.Header;
 import com.solvd.yahoo.gui.pages.common.FinancePageBase;
 import com.solvd.yahoo.gui.pages.common.ForecastPageBase;
 import com.solvd.yahoo.gui.pages.common.HomePageBase;
@@ -12,7 +12,7 @@ import org.openqa.selenium.support.FindBy;
 @DeviceType(pageType = DeviceType.Type.DESKTOP, parentClass = HomePageBase.class)
 public class HomePage extends HomePageBase {
     @FindBy(id = "ybar")
-    private HeaderBase header;
+    private Header header;
 
     @FindBy(id = "module-weather")
     private WeatherModule weatherModule;
