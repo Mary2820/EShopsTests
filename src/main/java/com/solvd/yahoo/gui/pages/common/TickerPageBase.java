@@ -6,7 +6,6 @@ import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
 
 public abstract class TickerPageBase extends AbstractPage {
-
     public TickerPageBase(WebDriver driver) {
         super(driver);
     }

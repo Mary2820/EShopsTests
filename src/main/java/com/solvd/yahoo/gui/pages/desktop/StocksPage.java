@@ -25,9 +25,11 @@ public class StocksPage extends SubCategoryPageBase {
     @Override
     public TickerPageBase selectTickerByName(String tickerName) {
         for (ExtendedWebElement link : tickerLinks) {
+            link.scrollTo();
             String current = link.getText();
             if (current.equals(tickerName)) {
                 link.click();
+                waitForJSToLoad();
                 return initPage(getDriver(), TickerPageBase.class);
             }
         }

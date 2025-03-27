@@ -20,7 +20,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class WebTest implements IAbstractTest {
-
     @Test
     @MethodOwner(owner = "Marina")
     @TestRailCaseId("TC_YAHOO_001")
@@ -45,8 +44,14 @@ public class WebTest implements IAbstractTest {
     @DataProvider(name = "stockTestData")
     public Object[][] getTestData() {
         return new Object[][] {
-                {"TSLA", "1M", 0.5, 0.2},
-                {"NVDA", "1D", 0.7, 0.15},
+                {"TSLA", "1D", 0.1, 0.9},
+                {"LCID", "5D", 0.5, 0.7},
+                {"IQ", "1M", 0.8, 0.9},
+                {"F", "6M", 0.7, 0.6},
+                {"NIO", "YTD", 0.6, 0.8},
+                {"GME", "1Y", 0.6, 0.6},
+                {"PLTR", "5Y", 0.5, 0.7},
+                {"SOFI", "All", 0.9, 0.9},
         };
     }
 
@@ -63,7 +68,7 @@ public class WebTest implements IAbstractTest {
         TickerPageBase tickerPage = stockPage.selectTickerByName(tickerName);
         Chart chart = tickerPage.getChart();
         chart.selectPeriod(period);
-        chart.hoverChartAndCheckTooltip(xPosition, yPosition);
+        chart.hoverAndClickOnPointOnChart(xPosition, yPosition);
 
         Tooltip tooltip = tickerPage.getTooltip();
 

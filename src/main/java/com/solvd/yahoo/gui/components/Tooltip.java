@@ -5,7 +5,6 @@ import com.zebrunner.carina.webdriver.gui.AbstractUIObject;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Tooltip extends AbstractUIObject {
     @FindBy(xpath = ".//tr[1]/td[1]")
@@ -31,7 +30,6 @@ public class Tooltip extends AbstractUIObject {
     }
 
     public String getDateFieldName() {
-        waitUntil(ExpectedConditions.visibilityOf(dateField), 10);
         return dateField.getText();
     }
 
