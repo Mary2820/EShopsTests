@@ -11,19 +11,19 @@ public class Tooltip extends AbstractUIObject {
     @FindBy(xpath = ".//tr[1]/td[1]")
     private ExtendedWebElement dateField;
 
-    @FindBy(xpath = "//tr[2]/td[1]")
+    @FindBy(xpath = ".//tr[2]/td[1]")
     private ExtendedWebElement closeField;
 
-    @FindBy(xpath = "//tr[3]/td[1]")
+    @FindBy(xpath = ".//tr[3]/td[1]")
     private ExtendedWebElement openField;
 
-    @FindBy(xpath = "//tr[4]/td[1]")
+    @FindBy(xpath = ".//tr[4]/td[1]")
     private ExtendedWebElement highField;
 
-    @FindBy(xpath = "//tr[5]/td[1]")
+    @FindBy(xpath = ".//tr[5]/td[1]")
     private ExtendedWebElement lowField;
 
-    @FindBy(xpath = "//tr[6]/td[1]")
+    @FindBy(xpath = ".//tr[6]/td[1]")
     private ExtendedWebElement volumeField;
 
     public Tooltip(WebDriver driver, SearchContext searchContext) {

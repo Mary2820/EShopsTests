@@ -8,17 +8,18 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.time.Duration;
 import java.util.List;
 
 public class Chart extends AbstractUIObject {
-    @FindBy(xpath = "//*[@data-testid='tabs-container']//button")
+    @FindBy(xpath = ".//*[@data-testid='tabs-container']//button")
     private List<ExtendedWebElement> periodFilter;
 
     public Chart(WebDriver driver, SearchContext searchContext) {
         super(driver, searchContext);
     }
 
-    @FindBy(xpath = ".//canvas")
+    @FindBy(xpath = ".//canvas[@aria-hidden='true'][1]")
     private ExtendedWebElement chartCanvas;
 
     public void selectPeriod(String chartPeriodName) {
@@ -39,10 +40,15 @@ public class Chart extends AbstractUIObject {
         int y = (int)(height * yPercent);
         
         Actions actions = new Actions(getDriver());
-        actions.moveToElement(chartCanvas.getElement(), x, y).perform();
+        actions.moveToElement(chartCanvas.getElement(), x, y)
+                .clickAndHold()
+                .pause(Duration.ofMillis(5000))
+                .perform();
     }
 
     private void waitToLoadChartCanvas() {
         waitUntil(ExpectedConditions.presenceOfElementLocated(chartCanvas.getBy()), 10);
+        chartCanvas.isPresent(10);
+        chartCanvas.isVisible(10);
     }
 }

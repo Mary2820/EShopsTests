@@ -6,6 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public abstract class HomePageBase extends AbstractPage {
+    @FindBy(id = "scroll-down-btn")
+    private ExtendedWebElement scrollDownButton;
+
     @FindBy(xpath = "//button[@class='btn secondary accept-all ']")
     private ExtendedWebElement acceptCookiesButton;
 
@@ -16,6 +19,8 @@ public abstract class HomePageBase extends AbstractPage {
     @Override
     public void open(){
         super.open();
+
+        scrollDownButton.clickIfPresent();
         acceptCookiesButton.clickIfPresent();
     }
 
